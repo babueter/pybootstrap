@@ -102,7 +102,7 @@ class Component(object):
 
     def html_close(self):
         indent = "" if self.inline else self._indent()
-        return "{}</{}>".format(indent, self.tag)
+        return "{}</{}>\n".format(indent, self.tag)
 
     def __str__(self):
         text = self.html_open()
