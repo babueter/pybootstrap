@@ -2,6 +2,7 @@
 Core object classes
 """
 
+import uuid
 
 class Attribute(object):
     """
@@ -29,6 +30,9 @@ class Attribute(object):
     def __hash__(self):
         return hash(self.name)
 
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+
     def __str__(self):
         return "{}=\"{}\"".format(
             self.name,
@@ -50,20 +54,25 @@ class Component(object):
         self.indent = indent
 
         self.attributes = set()
-        for attr in attributes.keys():
-            attribute = Attribute(attr, attributes[attr])
-            self.add_attribute(attribute)
+        self.add_attributes(**attributes)
 
     def add_attribute(self, attribute: Attribute):
         self.attributes.add(attribute)
 
+    def add_attributes(self, **attributes):
+        for attr in attributes.keys():
+            attribute = Attribute(attr, attributes[attr])
+            self.add_attribute(attribute)
+
     def del_attribute(self, attribute: Attribute):
         self.attributes.discard(attribute)
 
-    def get_attributes(self):
-        return " ".join(
-            [str(attr) for attr in self.attributes]
-        )
+    def get_attribute(self, attr):
+        for attribute in self.attributes:
+            if attribute == attr:
+                return attribute
+
+        return None
 
     def clear_attributes(self):
         self.attributes = set()
@@ -74,10 +83,13 @@ class Component(object):
         )
 
     def html_open(self):
+        attributes = " ".join(
+            [str(attr) for attr in self.attributes]
+        )
         return "{}<{} {}>".format(
             self._indent(),
             self.tag,
-            self.get_attributes(),
+            attributes,
         )
 
     def html_body(self):
@@ -115,12 +127,30 @@ class Container(Component):
         super().__init__(*args, **kwargs)
         self.components = list()
 
+        if not self.get_attribute("id"):
+            self.add_attributes(id=str(uuid.uuid4()))
+
     def add_component(self, component: Component):
         component.indent = self.indent + 1
+        if not component.get_attribute("id"):
+            component.add_attributes(id=str(uuid.uuid4()))
+
         self.components.append(component)
 
     def del_component(self, index: int):
         self.components.pop(index)
+
+    def get_component(self, id):
+        for component in self.components:
+            if component.get_attribute("id").values == set((id,)):
+                return component
+
+            if isinstance(component, Container):
+                sub_component = component.get_component(id)
+                if sub_component:
+                    return sub_component
+
+        return None
 
     def clear_components(self):
         self.components.clear()
