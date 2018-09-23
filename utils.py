@@ -6,6 +6,9 @@ from .core import Component
 class Header(object):
     BOOTSTRAP_URL="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     BOOTSTRAP_INTEGRITY="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+
+    META_CHARSET="utf-8"
+    META_VIEWPORT_CONTENT="width=device-width, initial-scale=1, shrink-to-fit=no"
     LANG="en"
 
     def __init__(self, title, *scripts):
@@ -15,12 +18,19 @@ class Header(object):
     def __str__(self):
         bootstrap = Component(
             "link",
-            indent=2,
-            inline=True,
             rel="stylesheet",
             href=self.BOOTSTRAP_URL,
             integrety=self.BOOTSTRAP_INTEGRITY,
             crossorigin="anonymous",
+        )
+        meta_charset = Component(
+            "meta",
+            charset=self.META_CHARSET
+        )
+        meta_viewport = Component(
+            "meta",
+            name="viewport",
+            content=self.META_VIEWPORT_CONTENT,
         )
         text = 'Content-Type: text/html\n'
         text += '\n'
@@ -28,10 +38,11 @@ class Header(object):
         text += '<html lang={}>\n'.format(self.LANG)
         text += '    <head>\n'
         text += '        <!-- Required met tags -->\n'
-        text += '        <meta charset="utf-8">\n'
-        text += '        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n'
+        text += '        {}\n'.format(meta_charset)
+        text += '        {}\n'.format(meta_viewport)
         text += '\n'
-        text += '        <!-- Bootstrap css -->\n{}\n'.format(bootstrap.html_open())
+        text += '        <!-- Bootstrap css -->\n'
+        text += '        {}\n'.format(bootstrap.html_open())
 
         for script in self.scripts:
             text += '        ' + str(script)
