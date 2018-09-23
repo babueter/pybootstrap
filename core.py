@@ -22,7 +22,7 @@ class Attribute(object):
     def del_value(self, value):
         self.values.discard(value)
 
-    def get_values(self):
+    def get_values(self) -> str:
         return " ".join(self.values)
 
     def clear_values(self):
@@ -85,7 +85,7 @@ class Component(object):
     def del_attribute(self, attribute: Attribute):
         self.attributes.discard(attribute)
 
-    def get_attribute(self, attr):
+    def get_attribute(self, attr) -> Attribute:
         for attribute in self.attributes:
             if attribute == attr:
                 return attribute
@@ -100,7 +100,7 @@ class Component(object):
             (self.indent + indent) * self.INDENT_SPACING
         )
 
-    def html_open(self):
+    def html_open(self) -> str:
         attributes = " ".join(
             [str(attr) for attr in self.attributes]
         )
@@ -110,7 +110,7 @@ class Component(object):
             attributes,
         )
 
-    def html_body(self):
+    def html_body(self) -> str:
         body = ""
         if not self.inline:
             body = self._indent(1)
@@ -118,11 +118,11 @@ class Component(object):
         body += self.text
         return body
 
-    def html_close(self):
+    def html_close(self) -> str:
         indent = "" if self.inline else self._indent()
         return "{}</{}>\n".format(indent, self.tag)
 
-    def __str__(self):
+    def __str__(self) -> str:
         text = self.html_open()
         if self.tag not in self.VOID_ELEMENTS:
             text += "" if self.inline else "\n"
@@ -159,7 +159,7 @@ class Container(Component):
     def del_component(self, index: int):
         self.components.pop(index)
 
-    def get_component(self, id):
+    def get_component(self, id) -> Component:
         for component in self.components:
             if component.get_attribute("id").values == set((id,)):
                 return component
@@ -174,7 +174,7 @@ class Container(Component):
     def clear_components(self):
         self.components.clear()
 
-    def html_body(self):
+    def html_body(self) -> str:
         return "\n".join(
             [str(component) for component in self.components]
         )
