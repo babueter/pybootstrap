@@ -45,7 +45,24 @@ class Component(object):
     HTML Component
     """
     INDENT_SPACING = 4
-    attributes = set()
+
+    # http://w3c.github.io/html/syntax.html#void-elements
+    VOID_ELEMENTS = (
+        "area",
+        "base",
+        "br",
+        "col",
+        "embed",
+        "hr",
+        "img",
+        "input",
+        "link",
+        "meta",
+        "param",
+        "source",
+        "track",
+        "wbr",
+    )
 
     def __init__(self, tag, text: str = "", inline: bool = False, indent: int = 0, **attributes):
         self.tag = tag
@@ -106,10 +123,11 @@ class Component(object):
 
     def __str__(self):
         text = self.html_open()
-        text += "" if self.inline else "\n"
-        text += self.html_body()
-        text += "" if self.inline else "\n"
-        text += self.html_close()
+        if self.tag not in self.VOID_ELEMENTS:
+            text += "" if self.inline else "\n"
+            text += self.html_body()
+            text += "" if self.inline else "\n"
+            text += self.html_close()
 
         return text
 
