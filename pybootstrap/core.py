@@ -75,7 +75,11 @@ class Component(object):
         self.add_attributes(**attributes)
 
     def add_attribute(self, attribute: Attribute):
-        self.attributes.add(attribute)
+        existing_attribute = self.get_attribute(attribute)
+        if existing_attribute:
+            existing_attribute.values.update(attribute.values)
+        else:
+            self.attributes.add(attribute)
 
     def add_attributes(self, **attributes):
         for attr in attributes.keys():

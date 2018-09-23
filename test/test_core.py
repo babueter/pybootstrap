@@ -78,6 +78,12 @@ class TestComponent(unittest.TestCase):
         self.c.add_attribute(a)
         self.assertTrue(a in self.c.attributes)
 
+        # Test adding existing attribute appends values
+        a = Attribute(ATTRIBUTE_NAME, ATTRIBUTE_VALUE2)
+        self.c.add_attribute(a)
+        self.assertTrue(ATTRIBUTE_VALUE1 in self.c.get_attribute(a).values)
+        self.assertTrue(ATTRIBUTE_VALUE2 in self.c.get_attribute(a).values)
+
     def test_del_attribute(self):
         a = Attribute(ATTRIBUTE_NAME, ATTRIBUTE_VALUE1)
         self.c.add_attribute(a)
