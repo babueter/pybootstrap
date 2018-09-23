@@ -178,3 +178,11 @@ class Container(Component):
         return "\n".join(
             [str(component) for component in self.components]
         )
+
+    @property
+    def id(self) -> str:
+        id_attribute = self.get_attribute("id")
+        if id_attribute:
+            return id_attribute.get_values()
+
+        return ""
