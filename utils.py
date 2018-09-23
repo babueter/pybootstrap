@@ -3,6 +3,7 @@ Bootstrap utils
 """
 from .core import Component
 
+
 class Header(object):
     BOOTSTRAP_URL="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     BOOTSTRAP_INTEGRITY="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -53,6 +54,7 @@ class Header(object):
         text += '    <body>\n'
 
         return text
+
 
 class Footer(object):
     def __init__(self, *scripts):

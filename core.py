@@ -4,6 +4,7 @@ Core object classes
 
 import uuid
 
+
 class Attribute(object):
     """
     HTML Attribute
