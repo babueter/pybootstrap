@@ -156,8 +156,12 @@ class Container(Component):
 
         self.components.append(component)
 
-    def del_component(self, index: int):
-        self.components.pop(index)
+    def del_component(self, id: str):
+        for index in range(len(self.components)):
+            comp_id = self.components[index].get_attribute("id")
+            if comp_id and id == comp_id.get_values():
+                self.components.pop(index)
+                return
 
     def get_component(self, id) -> Component:
         for component in self.components:
