@@ -1,7 +1,7 @@
 """
 Bootstrap utils
 """
-from .core import Component
+from pybootstrap.core import Component
 
 
 class Header(object):

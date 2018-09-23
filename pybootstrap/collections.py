@@ -2,7 +2,7 @@
 HTML Component Collections
 """
 
-from .core import Container
+from pybootstrap.core import Container
 
 
 class Table(Container):
