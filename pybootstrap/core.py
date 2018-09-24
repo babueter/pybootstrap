@@ -153,11 +153,17 @@ class Container(Component):
         if not self.get_attribute("id"):
             self.add_attributes(id=str(uuid.uuid4()))
 
-    def add_component(self, component: Component):
-        component.indent = self.indent + 1
+    def _update_indent_and_id(self, indent, component: Component):
         if not component.get_attribute("id"):
             component.add_attributes(id=str(uuid.uuid4()))
 
+        component.indent = indent
+        if isinstance(component, Container):
+            for sub_component in component.components:
+                self._update_indent_and_id(indent+1, sub_component)
+
+    def add_component(self, component: Component):
+        self._update_indent_and_id(self.indent+1, component)
         self.components.append(component)
 
     def del_component(self, id: str):

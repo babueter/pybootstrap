@@ -137,9 +137,19 @@ class TestContainer(unittest.TestCase):
         self.assertFalse(c.get_attribute("id"))
         self.assertFalse(c in self.c.components)
 
+        # Test that ID is added to components
         self.c.add_component(c)
         self.assertTrue(c.get_attribute("id"))
         self.assertTrue(c in self.c.components)
+
+        # Test that indent is updated on nested objects
+        c1 = Container()
+        c2 = Container()
+        c1.add_component(c2)
+        self.assertTrue(c1.indent == c2.indent-1)
+        self.c.add_component(c1)
+        self.assertTrue(self.c.indent == c1.indent-1)
+        self.assertTrue(c1.indent == c2.indent-1)
 
     def test_del_component(self):
         c = Component(COMPONENT_TAG)
