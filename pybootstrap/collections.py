@@ -2,48 +2,7 @@
 HTML Component Collections
 """
 
-from pybootstrap.core import Attribute, Container
-
-CONTAINER = Attribute("class", "container")
-ROW = Attribute("class", "row")
-COL_1 = Attribute("class", "col-1")
-COL_2 = Attribute("class", "col-2")
-COL_3 = Attribute("class", "col-3")
-COL_4 = Attribute("class", "col-4")
-COL_5 = Attribute("class", "col-5")
-COL_6 = Attribute("class", "col-6")
-COL_7 = Attribute("class", "col-7")
-COL_8 = Attribute("class", "col-8")
-COL_9 = Attribute("class", "col-9")
-COL_10 = Attribute("class", "col-10")
-COL_11 = Attribute("class", "col-11")
-COL_12 = Attribute("class", "col-12")
-
-COL_SM_1 = Attribute("class", "col-sm-1")
-COL_SM_2 = Attribute("class", "col-sm-2")
-COL_SM_3 = Attribute("class", "col-sm-3")
-COL_SM_4 = Attribute("class", "col-sm-4")
-COL_SM_5 = Attribute("class", "col-sm-5")
-COL_SM_6 = Attribute("class", "col-sm-6")
-COL_SM_7 = Attribute("class", "col-sm-7")
-COL_SM_8 = Attribute("class", "col-sm-8")
-COL_SM_9 = Attribute("class", "col-sm-9")
-COL_SM_10 = Attribute("class", "col-sm-10")
-COL_SM_11 = Attribute("class", "col-sm-11")
-COL_SM_12 = Attribute("class", "col-sm-12")
-
-COL_LG_1 = Attribute("class", "col-lg-1")
-COL_LG_2 = Attribute("class", "col-lg-2")
-COL_LG_3 = Attribute("class", "col-lg-3")
-COL_LG_4 = Attribute("class", "col-lg-4")
-COL_LG_5 = Attribute("class", "col-lg-5")
-COL_LG_6 = Attribute("class", "col-lg-6")
-COL_LG_7 = Attribute("class", "col-lg-7")
-COL_LG_8 = Attribute("class", "col-lg-8")
-COL_LG_9 = Attribute("class", "col-lg-9")
-COL_LG_10 = Attribute("class", "col-lg-10")
-COL_LG_11 = Attribute("class", "col-lg-11")
-COL_LG_12 = Attribute("class", "col-lg-12")
+from pybootstrap.core import Container
 
 
 class Table(Container):
