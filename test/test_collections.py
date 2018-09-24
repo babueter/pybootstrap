@@ -1,8 +1,37 @@
 import unittest
-from pybootstrap.collections import Table
+from pybootstrap.collections import ProgressBar, Table
 
 TABLE_ROWS=3
 TABLE_COLUMNS=2
+
+
+class TestProgressBar(unittest.TestCase):
+    def setUp(self):
+        self.progressbar = ProgressBar()
+
+    def test_init(self):
+        self.assertTrue(hasattr(self.progressbar, "valuenow"))
+        self.assertTrue(hasattr(self.progressbar, "valuemin"))
+        self.assertTrue(hasattr(self.progressbar, "valuemax"))
+        self.assertTrue(self.progressbar.get_component("{}-progressbar".format(self.progressbar.id)))
+
+    def test_html_body(self):
+        output = str(self.progressbar)
+        self.assertTrue('aria-valuenow="{}"'.format(self.progressbar.valuenow) in output)
+        self.assertTrue('aria-valuemin="{}"'.format(self.progressbar.valuemin) in output)
+        self.assertTrue('aria-valuemax="{}"'.format(self.progressbar.valuemax) in output)
+        self.assertTrue('style="width: {}%"'.format(self.progressbar.valuenow) in output)
+
+        self.progressbar.valuenow = 1
+        self.progressbar.valuemin = 2
+        self.progressbar.valuemax = 3
+
+        output = str(self.progressbar)
+        self.assertTrue('aria-valuenow="{}"'.format(self.progressbar.valuenow) in output)
+        self.assertTrue('aria-valuemin="{}"'.format(self.progressbar.valuemin) in output)
+        self.assertTrue('aria-valuemax="{}"'.format(self.progressbar.valuemax) in output)
+        self.assertTrue('style="width: {}%"'.format(self.progressbar.valuenow) in output)
+
 
 class TestTable(unittest.TestCase):
     def setUp(self):

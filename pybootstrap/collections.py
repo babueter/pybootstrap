@@ -5,6 +5,40 @@ HTML Component Collections
 from pybootstrap.core import Container
 
 
+class ProgressBar(Container):
+    def __init__(self, text: str = None, valuenow: int = 0, valuemin: int = 0, valuemax: int = 100, **attributes):
+        attributes["class"] = "progress"
+        super().__init__("div", **attributes)
+
+        self.valuenow = valuenow
+        self.valuemin = valuemin
+        self.valuemax = valuemax
+
+        progressbar = Container(
+            "div",
+            role="progressbar",
+            style="width: {}%".format(valuenow),
+            id="{}-progressbar".format(self.id),
+            **{"class": "progress-bar"}
+        )
+        self.add_component(progressbar)
+
+    def html_body(self):
+        progressbar = self.get_component("{}-progressbar".format(self.id))
+        progressbar.del_attribute("aria-valuenow")
+        progressbar.del_attribute("aria-valuemin")
+        progressbar.del_attribute("aria-valuemax")
+        progressbar.del_attribute("style")
+
+        progressbar.add_attributes(**{
+            "aria-valuenow": str(self.valuenow),
+            "aria-valuemin": str(self.valuemin),
+            "aria-valuemax": str(self.valuemax),
+            "style": "width: {}%".format(self.valuenow),
+        })
+        return super().html_body()
+
+
 class Table(Container):
     TABLE_TAG="table"
     ROW_TAG="tr"
