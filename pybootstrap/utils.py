@@ -33,7 +33,7 @@ class Header(object):
             name="viewport",
             content=self.META_VIEWPORT_CONTENT,
         )
-        text += '<!doctype html>\n'
+        text = '<!doctype html>\n'
         text += '<html lang={}>\n'.format(self.LANG)
         text += '    <head>\n'
         text += '        <!-- Required met tags -->\n'
