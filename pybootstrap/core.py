@@ -106,7 +106,7 @@ class Component(object):
 
     def html_open(self) -> str:
         attributes = " ".join(
-            [str(attr) for attr in self.attributes]
+            [str(attr) for attr in self.attributes if attr.get_values()]
         )
         return "{}<{} {}>".format(
             self._indent(),
