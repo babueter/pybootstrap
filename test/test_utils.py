@@ -1,13 +1,29 @@
 import unittest
-from pybootstrap.utils import Header, Footer
+from pybootstrap.core import Component
+from pybootstrap import utils
 
 TITLE="test title"
 SCRIPT1="script1"
 SCRIPT2="script2"
 
+CLASS1="test1"
+CLASS2="test1"
+
+
+class TestUtilsMethods(unittest.TestCase):
+    def test_add_class_attributes(self):
+        c = Component("div")
+        self.assertTrue(c.get_attribute("class") is None)
+
+        utils.add_class_attributes(c, CLASS1, CLASS2)
+        self.assertTrue(c.get_attribute("class") is not None)
+        self.assertTrue(CLASS1 in c.get_attribute("class").values)
+        self.assertTrue(CLASS2 in c.get_attribute("class").values)
+
+
 class TestHeader(unittest.TestCase):
     def setUp(self):
-        self.header = Header(TITLE, SCRIPT1, SCRIPT2)
+        self.header = utils.Header(TITLE, SCRIPT1, SCRIPT2)
 
     def test_init(self):
         self.assertTrue(hasattr(self.header, "title"))
@@ -31,7 +47,7 @@ class TestHeader(unittest.TestCase):
 
 class TestFooter(unittest.TestCase):
     def setUp(self):
-        self.footer = Footer(SCRIPT1, SCRIPT2)
+        self.footer = utils.Footer(SCRIPT1, SCRIPT2)
 
     def test_init(self):
         self.assertTrue(hasattr(self.footer, "scripts"))

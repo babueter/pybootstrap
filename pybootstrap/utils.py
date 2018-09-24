@@ -1,7 +1,16 @@
 """
 Bootstrap utils
 """
-from pybootstrap.core import Component
+from pybootstrap.core import Attribute, Component
+
+
+def add_class_attributes(component: Component, *values):
+    if not component.get_attribute("class"):
+        component.add_attribute(Attribute("class"))
+
+    class_attribute = component.get_attribute("class")
+    for value in values:
+        class_attribute.add_value(value)
 
 
 class Header(object):
