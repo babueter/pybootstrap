@@ -3,8 +3,8 @@ from pybootstrap.collections import *
 
 TABLE_ROWS=3
 TABLE_COLUMNS=2
-
 CAROUSEL_INTERVAL=9999
+
 
 class TestProgressBar(unittest.TestCase):
     def setUp(self):
