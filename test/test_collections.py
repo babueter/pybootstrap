@@ -1,9 +1,10 @@
 import unittest
-from pybootstrap.collections import ProgressBar, Table
+from pybootstrap.collections import *
 
 TABLE_ROWS=3
 TABLE_COLUMNS=2
 
+CAROUSEL_INTERVAL=9999
 
 class TestProgressBar(unittest.TestCase):
     def setUp(self):
@@ -63,3 +64,44 @@ class TestTable(unittest.TestCase):
 
         for row in self.table.components:
             self.assertTrue(len(row.components) == self.table.cols())
+
+
+class TestCarousel(unittest.TestCase):
+    def setUp(self):
+        self.carousel = Carousel(controls=True, indicators=True)
+
+    def test_init(self):
+        self.assertTrue(self.carousel.components[0].tag == "ol")
+        self.assertTrue(self.carousel.components[1] == self.carousel.inner)
+        self.assertTrue("carousel-control-prev" in self.carousel.components[2].get_attribute("class").get_values())
+        self.assertTrue("carousel-control-next" in self.carousel.components[3].get_attribute("class").get_values())
+
+    def test_interval(self):
+        self.assertTrue("data-interval=\"{}\"".format(CAROUSEL_INTERVAL) not in str(self.carousel))
+        self.carousel.interval = CAROUSEL_INTERVAL
+        self.assertTrue("data-interval=\"{}\"".format(CAROUSEL_INTERVAL) in str(self.carousel))
+
+    def test_keyboard(self):
+        self.assertTrue("data-keyboard=\"false\"" not in str(self.carousel))
+        self.carousel.keyboard = False
+        self.assertTrue("data-keyboard=\"false\"" in str(self.carousel))
+
+    def test_ride(self):
+        self.assertTrue("data-ride=\"true\"" not in str(self.carousel))
+        self.carousel.ride = True
+        self.assertTrue("data-ride=\"true\"" in str(self.carousel))
+
+    def test_wrap(self):
+        self.assertTrue("data-wrap=\"false\"" not in str(self.carousel))
+        self.carousel.wrap = False
+        self.assertTrue("data-wrap=\"false\"" in str(self.carousel))
+
+    def test_add_item(self):
+        self.assertFalse(self.carousel.indicators.components)
+        self.assertFalse(self.carousel.inner.components)
+
+        item = Component("img", src="...", alt="Slide")
+        self.carousel.add_item(item)
+
+        self.assertTrue(self.carousel.indicators.components)
+        self.assertTrue(self.carousel.inner.components)
