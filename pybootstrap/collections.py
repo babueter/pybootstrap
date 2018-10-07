@@ -120,7 +120,7 @@ class Carousel(Container):
 
         if controls:
             control_prev = Container(
-                "a", href="#carouselExampleIndicators", role="button",
+                "a", href="#carouselIndicators", role="button",
                 **{
                     "class": "carousel-control-prev",
                     "data-slide": "prev",
@@ -130,7 +130,7 @@ class Carousel(Container):
             control_prev.add_component(Component("span", inline=True, **{"class": "sr-only"}, text="Previous"))
 
             control_next = Container(
-                "a", href="#carouselExampleIndicators", role="button",
+                "a", href="#carouselIndicators", role="button",
                 **{
                     "class": "carousel-control-next",
                     "data-slide": "next",
