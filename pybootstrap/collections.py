@@ -7,7 +7,7 @@ from .utils import add_class_attributes
 
 
 class ProgressBar(Container):
-    def __init__(self, valuenow: int = 0, valuemin: int = 0, valuemax: int = 100, **attributes):
+    def __init__(self, text: str = None, valuenow: int = 0, valuemin: int = 0, valuemax: int = 100, **attributes):
         attributes["class"] = "progress"
         super().__init__("div", **attributes)
 
@@ -17,6 +17,7 @@ class ProgressBar(Container):
 
         progressbar = Container(
             "div",
+            text=text,
             role="progressbar",
             style="width: {}%".format(valuenow),
             id="{}-progressbar".format(self.id),
