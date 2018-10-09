@@ -2,11 +2,15 @@ pipeline {
     agent any
 
     stages {
-        unit_test {
-            sh "coverage run --source pybootstrap -m unittest discover"
+        stage("Unit Test") {
+            steps {
+                sh "coverage run --source pybootstrap -m unittest discover"
+            }
         }
-        coverage {
-            sh "coverage xml"
+        stage("Coverage") {
+            steps {
+                sh "coverage xml"
+            }
         }
     }
 }
