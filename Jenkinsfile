@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        unit-test {
+        unit_test {
             sh "coverage run --source pybootstrap -m unittest discover"
         }
         coverage {
