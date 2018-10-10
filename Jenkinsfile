@@ -11,7 +11,6 @@ pipeline {
                 sh """
                     ${env.PYTHON} -m virtualenv .venv --never-download
                     source .venv/bin/activate
-                    ${env.PYTHON}
                     ${env.PYTHON} -m pip install -r requirements.txt
                 """
             }
