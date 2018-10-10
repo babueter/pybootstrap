@@ -9,7 +9,7 @@ pipeline {
         stage("Virtual Environment") {
             steps {
                 sh """
-                    ${env.PYTHON} -m virtualenv .venv --never-download
+                    ${env.PYTHON} -m venv .venv
                     source .venv/bin/activate
                     ${env.PYTHON} -m pip install -r requirements.txt
                 """
