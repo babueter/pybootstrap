@@ -21,15 +21,13 @@ pipeline {
                 sh """
                     source .venv/bin/activate
                     coverage run --source pybootstrap -m unittest discover
+                    coverage xml
                 """
             }
         }
-        stage("Coverage") {
-            steps {
-                sh """
-                    source .venv/bin/activate
-                    coverage xml
-                """
+        post {
+            always {
+                step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/coverage.xml', failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false])
             }
         }
     }
