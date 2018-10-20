@@ -3,6 +3,7 @@ Core object classes
 """
 
 import uuid
+import html
 
 
 class Attribute(object):
@@ -119,7 +120,7 @@ class Component(object):
         if not self.inline:
             body = self._indent(1)
 
-        body += self.text
+        body += html.escape(self.text)
         return body
 
     def html_close(self) -> str:
