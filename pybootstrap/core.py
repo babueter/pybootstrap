@@ -120,7 +120,7 @@ class Component(object):
         if not self.inline:
             body = self._indent(1)
 
-        body += html.escape(self.text)
+        body += html.escape(self.text).replace('%', '&#37;')
         return body
 
     def html_close(self) -> str:
