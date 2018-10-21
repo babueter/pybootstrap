@@ -121,23 +121,23 @@ class Carousel(Container):
 
         if controls:
             control_prev = Container(
-                "a", href="#carouselIndicators", role="button",
+                "a", id=self.id+"-prev", href="#{}".format(self.id), role="button",
                 **{
                     "class": "carousel-control-prev",
                     "data-slide": "prev",
                 },
             )
-            control_prev.add_component(Component("span", inline=True, **{"class": "carousel-control-prev-icon", "aria-hidden": "true"}))
+            control_prev.add_component(Component("span", id=control_prev.id+'-icon', inline=True, **{"class": "carousel-control-prev-icon", "aria-hidden": "true"}))
             control_prev.add_component(Component("span", inline=True, **{"class": "sr-only"}, text="Previous"))
 
             control_next = Container(
-                "a", href="#carouselIndicators", role="button",
+                "a", id=self.id+"-next", href="#{}".format(self.id), role="button",
                 **{
                     "class": "carousel-control-next",
                     "data-slide": "next",
                 },
             )
-            control_next.add_component(Component("span", inline=True, **{"class": "carousel-control-next-icon", "aria-hidden": "true"}))
+            control_next.add_component(Component("span", id=control_next.id+'-icon', inline=True, **{"class": "carousel-control-next-icon", "aria-hidden": "true"}))
             control_next.add_component(Component("span", inline=True,**{"class": "sr-only"}, text="Next"))
 
             self.add_component(control_prev)
