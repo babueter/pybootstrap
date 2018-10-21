@@ -1,3 +1,4 @@
+import re
 import unittest
 from pybootstrap.core import Attribute, Component, Container
 
@@ -189,3 +190,9 @@ class TestContainer(unittest.TestCase):
 
         id = c.get_attribute("id").get_values()
         self.assertTrue(id in self.c.html_body())
+
+    def test_id_begins_with_alpha(self):
+        exp = re.compile('^[a-z]')
+        for i in range(100):
+            c = Container()
+            assert exp.match(c.id)

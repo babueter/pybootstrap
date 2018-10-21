@@ -2,6 +2,7 @@
 Core object classes
 """
 
+import re
 import uuid
 import html
 
@@ -152,7 +153,12 @@ class Container(Component):
         self.components = list()
 
         if not self.get_attribute("id"):
-            self.add_attributes(id=str(uuid.uuid4()))
+            exp = re.compile('^[a-z]')
+            uuid_str = str(uuid.uuid4())
+            while not exp.match(uuid_str):
+                uuid_str = str(uuid.uuid4())
+
+            self.add_attributes(id=uuid_str)
 
     def _update_indent_and_id(self, indent, component: Component):
         if not component.get_attribute("id"):
